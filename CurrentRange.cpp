@@ -22,8 +22,6 @@ void CurrentRange::printRange(vector<t_rangeInfo> &rangePtr)
     {
         if (rangeInfo.at(i).count > 1)
         {
-            cout << rangeInfo.at(i).start + "-" + to_string(rangeInfo.at(i).end) << endl;
-
             rangePtr.push_back({to_string(rangeInfo.at(i).start) + "-" + to_string(rangeInfo.at(i).end), rangeInfo.at(i).count});
         }
     }
@@ -37,8 +35,6 @@ t_currentRangeErrorCodes CurrentRange::getCurrentRanges(vector<tCinA> currentRan
 
     sort(currentRange.begin(), currentRange.end());
 
-    cout << "CurrRange size:" << currentRange.size() << endl;
-
     if (currentRange.size() < 2)
     {
         return E_NO_MIN_ELEMENTS;
@@ -48,14 +44,12 @@ t_currentRangeErrorCodes CurrentRange::getCurrentRanges(vector<tCinA> currentRan
     {
         if (isNewRangeStart)
         {
-            cout << "new range start:" << currentRange.size() << endl;
             isNewRangeStart = false;
             startNewRange(rangeCalcParams, currentRange.at(i-1));
         }
 
         if ((currentRange.at(i) - currentRange.at(i - 1)) <= RANGE_THRESHOLD)
         {
-            cout << "CurrRange size:" << currentRange.size() << endl;
             rangeCalcParams.count++;
         }
         else
