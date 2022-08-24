@@ -24,3 +24,11 @@ TEST_CASE("RangeCheck2") {
     REQUIRE(rangeInfo.at(1).range.compare("7-9") == 0);
     REQUIRE(rangeInfo.at(1).rangeCount == 5);
 }
+
+TEST_CASE("InvalidRangeCheck") {
+    CurrentRange testCurrentRange;
+    vector <tCinA> currentRange = {4};
+    vector <t_rangeInfo> rangeInfo;
+
+    REQUIRE(testCurrentRange.getCurrentRanges(currentRange, rangeInfo) == E_NO_MIN_ELEMENTS);
+}
