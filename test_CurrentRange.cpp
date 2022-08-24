@@ -3,10 +3,24 @@
 #include "test/catch.hpp"
 #include "CurrentRange.hpp"
 
-TEST_CASE("Cooling status email alert normal") {
-    vector <int> currentRange = {4,5};
-    CurrentRange testCurrentRange(currentRange);
+TEST_CASE("RangeCheck") {
+    CurrentRange testCurrentRange;
+    vector <tCinA> currentRange = {4,5};
+    vector <t_rangeInfo> rangeInfo;
 
-    REQUIRE(testCurrentRange.getCurrentRanges().at(0).range.compare("4-5") == 0);
-    REQUIRE(testCurrentRange.getCurrentRanges().at(0).rangeCount == 2);
+    REQUIRE(testCurrentRange.getCurrentRanges(currentRange, rangeInfo) == E_OK);
+    REQUIRE(rangeInfo.at(0).range.compare("4-5") == 0);
+    REQUIRE(rangeInfo.at(0).rangeCount == 2);
+}
+
+TEST_CASE("RangeCheck2") {
+    CurrentRange testCurrentRange;
+    vector <tCinA> currentRange = {4,5,7,9,7,7,8};
+    vector <t_rangeInfo> rangeInfo;
+
+    REQUIRE(testCurrentRange.getCurrentRanges(currentRange, rangeInfo) == E_OK);
+    REQUIRE(rangeInfo.at(0).range.compare("4-5") == 0);
+    REQUIRE(rangeInfo.at(0).rangeCount == 2);
+    REQUIRE(rangeInfo.at(1).range.compare("7-9") == 0);
+    REQUIRE(rangeInfo.at(1).rangeCount == 5);
 }
